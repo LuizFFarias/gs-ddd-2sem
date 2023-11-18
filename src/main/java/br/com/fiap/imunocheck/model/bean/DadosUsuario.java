@@ -15,9 +15,6 @@ public class DadosUsuario {
 	private String usuario;
 	@NotBlank
 	private String senha;
-	@NotNull
-	private String vacinasTomadas;
-	
 	public String getNome() {
 		return nome;
 	}
@@ -49,19 +46,13 @@ public class DadosUsuario {
 		this.senha = senha;
 	}
 	
-	public String getVacinasTomadas() {
-		return vacinasTomadas;
-	}
-	public void setVacinasTomadas(String vacinasTomadas) {
-		this.vacinasTomadas = vacinasTomadas;
-	}
 	public DadosUsuario() {
 		
 	}
 	
 	
 	public DadosUsuario(@NotBlank String nome, @Positive int idade, @NotBlank String cidade, @NotBlank String usuario,
-			@NotBlank String senha, @NotNull String vacinasTomadas) {
+			@NotBlank String senha) {
 		this.nome = nome;
 		this.idade = idade;
 		this.cidade = cidade;
