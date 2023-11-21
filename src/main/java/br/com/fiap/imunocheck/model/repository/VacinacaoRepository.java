@@ -174,14 +174,14 @@ public class VacinacaoRepository extends Repository{
 			String sql = "select * from VacinasUsuario where usuario = ?";
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
-				Vacinas vacinas = new Vacinas();
-				ps.setString(1, vacinas.getUsuarioVac());
+				ps.setString(1, usuario);
 				ResultSet rs = ps.executeQuery();
 				if (rs != null) {
 					while (rs.next()) {
-						vacinas.setId(rs.getInt("id"));
-						vacinas.setStatusVac(rs.getString("statusVac"));
-						vacinas.setUsuarioVac(rs.getString("usuarioVac"));
+						Vacinas vacinas = new Vacinas();
+						vacinas.setId(rs.getInt("idvacina"));
+						vacinas.setStatusVac(rs.getString("statusvacina"));
+						vacinas.setUsuarioVac(rs.getString("usuario"));
 						tabelaVac.add(vacinas);
 					}
 				}
@@ -247,5 +247,29 @@ public class VacinacaoRepository extends Repository{
 			return null;
 			
 		}
+		
+		   /***
+		    * Método para deletar o cadastro e os dados do usuário
+		    * @author Luiz Fillipe
+		    */	
+			
+			public static boolean deleteVac(String usuario) {
+				String sql = "delete from VacinasUsuario where usuario = ?";
+				try {
+					PreparedStatement ps = getConnection().prepareStatement(sql);
+					ps.setString(1, usuario);
+					if (ps.executeUpdate() > 0) {
+						return true;
+					} else {
+						return false;
+					}
+				} catch (SQLException e) {
+					System.out.println("Erro ao deletar vacina: " + e.getMessage());
+				} finally {
+					closeConnection();
+				}
+				return false;
+			}
+			
 
 }

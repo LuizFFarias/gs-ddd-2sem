@@ -136,4 +136,16 @@ public class VacinacaoResource {
 		return response.build();
 	}
 	
+	@DELETE
+	@Path("/vacinas/{usuarioVac}")
+	public Response deleteVac(@PathParam("usuarioVac") String usuario) {
+		if (VacinacaoRepository.deleteVac(usuario)) {
+			ResponseBuilder response = Response.noContent();
+			return response.build();
+		} else {
+			ResponseBuilder response = Response.status(404);
+			return response.build();
+		}
+	}
+	
 }
