@@ -3,11 +3,14 @@ package br.com.fiap.imunocheck.resource;
 import java.util.ArrayList;
 
 import br.com.fiap.imunocheck.model.bean.DadosUsuario;
+import br.com.fiap.imunocheck.model.bean.Vacinas;
 import br.com.fiap.imunocheck.model.repository.VacinacaoRepository;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -73,5 +76,64 @@ public class VacinacaoResource {
 		response.entity(resposta);
 		return response.build();
 	}
+	
+	@DELETE
+	@Path("/{usuario}")
+	public Response delete(@PathParam("usuario") String usuario) {
+		if (VacinacaoRepository.delete(usuario)) {
+			ResponseBuilder response = Response.noContent();
+			return response.build();
+		} else {
+			ResponseBuilder response = Response.status(404);
+			return response.build();
+		}
+	}
 
+
+	@GET
+	@Path("/vacinas/{usuarioVac}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findVac(@PathParam("usuarioVac") String usuario) {
+		ArrayList<Vacinas> resposta = VacinacaoRepository.findVac(usuario);
+		  if (resposta != null && !resposta.isEmpty()) {
+	            System.out.println("Vacinas encontradas");
+	            ResponseBuilder response = Response.ok(resposta, MediaType.APPLICATION_JSON);
+	            return response.build();
+	        } else {
+	        	System.out.println("Vacinas não encontradas");
+			            ResponseBuilder response = Response.status(404);
+			            return response.build();
+			        }	
+}
+	@POST
+	@Path("/vacinas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response saveVac(@Valid Vacinas vacinas) {
+		Vacinas resposta = VacinacaoRepository.saveVac(vacinas);
+		ResponseBuilder response = null;
+		if(resposta != null) {
+			response = Response.created(null);
+		}
+		else {
+			response = Response.status(400);
+		}
+		response.entity(resposta);
+		return response.build();
+	}
+	
+	@PUT
+	@Path("/vacinas")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateVac(@Valid Vacinas vacinas) {
+		Vacinas resposta = VacinacaoRepository.updateVac(vacinas);
+		ResponseBuilder response = null;
+		if (resposta != null) {
+			response = Response.created(null);
+		} else {
+			response = Response.status(400);
+		}
+		response.entity(response);
+		return response.build();
+	}
+	
 }

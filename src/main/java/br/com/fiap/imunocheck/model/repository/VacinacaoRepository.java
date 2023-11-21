@@ -32,7 +32,6 @@ public class VacinacaoRepository extends Repository{
 					dado.setIdade(rs.getInt("idade"));
 					dado.setEstado(rs.getString("estado"));
 					dados.add(dado);
-					System.out.println("dados: " + dados);
 					}
 					
 				}
@@ -170,18 +169,19 @@ public class VacinacaoRepository extends Repository{
 		 * @author luizfillipe
 		 */
 		
-		public static ArrayList<Vacinas> findVac(Vacinas vacinas, DadosUsuario dado){
+		public static ArrayList<Vacinas> findVac(String usuario){
 			ArrayList<Vacinas> tabelaVac = new ArrayList<Vacinas>();
 			String sql = "select * from VacinasUsuario where usuario = ?";
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
-				ps.setString(1, dado.getUsuario());
+				Vacinas vacinas = new Vacinas();
+				ps.setString(1, vacinas.getUsuarioVac());
 				ResultSet rs = ps.executeQuery();
 				if (rs != null) {
 					while (rs.next()) {
-						vacinas.setId(rs.getInt("idVacina"));
-						vacinas.setStatusVac(rs.getString("statusVacina"));
-						dado.setUsuario(rs.getString("usuario"));
+						vacinas.setId(rs.getInt("id"));
+						vacinas.setStatusVac(rs.getString("statusVac"));
+						vacinas.setUsuarioVac(rs.getString("usuarioVac"));
 						tabelaVac.add(vacinas);
 					}
 				}
@@ -199,11 +199,11 @@ public class VacinacaoRepository extends Repository{
 		 * @author Luiz Fillipe
 		 */
 		
-		public static Vacinas saveVac(Vacinas vacinas, DadosUsuario dado) {
+		public static Vacinas saveVac(Vacinas vacinas) {
 			String sql = "insert into VacinasUsuario values(?, ?, ?)";
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
-				ps.setString(1, dado.getUsuario());
+				ps.setString(1, vacinas.getUsuarioVac());
 				ps.setInt(2, vacinas.getId());
 				ps.setString(3, vacinas.getStatusVac());
 				if (ps.executeUpdate() > 0) {
@@ -225,13 +225,13 @@ public class VacinacaoRepository extends Repository{
 		 * @author luizfillipe
 		 */
 		
-		public static Vacinas updateVac(Vacinas vacinas, DadosUsuario dado){
-			String sql = "update VacinasUsuario set idVacina = ?, statusVacina where usuario = ?";
+		public static Vacinas updateVac(Vacinas vacinas){
+			String sql = "update VacinasUsuario set idVacina = ?, statusVacina = ? where usuario = ?";
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
 				ps.setInt(1, vacinas.getId());
 				ps.setString(2, vacinas.getStatusVac());
-				ps.setString(3, dado.getUsuario());
+				ps.setString(3, vacinas.getUsuarioVac());
 				if (ps.executeUpdate() > 0) {
 					return vacinas;
 				} else {
