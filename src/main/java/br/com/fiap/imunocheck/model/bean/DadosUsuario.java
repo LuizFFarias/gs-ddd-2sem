@@ -10,7 +10,7 @@ public class DadosUsuario {
 	@Positive
 	private int idade;
 	@NotBlank
-	private String cidade;
+	private String estado;
 	@NotBlank
 	private String usuario;
 	@NotBlank
@@ -27,11 +27,11 @@ public class DadosUsuario {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getEstado() {
+		return estado;
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	public String getUsuario() {
 		return usuario;
@@ -51,11 +51,11 @@ public class DadosUsuario {
 	}
 	
 	
-	public DadosUsuario(@NotBlank String nome, @Positive int idade, @NotBlank String cidade, @NotBlank String usuario,
+	public DadosUsuario(@NotBlank String nome, @Positive int idade, @NotBlank String estado, @NotBlank String usuario,
 			@NotBlank String senha) {
 		this.nome = nome;
 		this.idade = idade;
-		this.cidade = cidade;
+		this.estado = estado;
 		this.usuario = usuario;
 		this.senha = senha;
 	}
