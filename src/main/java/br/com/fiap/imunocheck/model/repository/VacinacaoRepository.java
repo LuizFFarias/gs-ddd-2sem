@@ -54,7 +54,7 @@ public class VacinacaoRepository extends Repository{
 		 */
 		public static ArrayList<DadosUsuario> findOne(String usuario){
 			ArrayList<DadosUsuario> dados = new ArrayList<DadosUsuario>();
-			String sql = "select nomecompleto, idade, estado from Cadastro where usuario = ?";
+			String sql = "select nomecompleto, idade, estado, usuario, senha from Cadastro where usuario = ?";
 			
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -67,6 +67,8 @@ public class VacinacaoRepository extends Repository{
 						dado.setNome(rs.getString("nomecompleto"));
 						dado.setIdade(rs.getInt("idade"));
 						dado.setEstado(rs.getString("estado"));
+						dado.setUsuario(rs.getString("usuario"));
+						dado.setSenha(rs.getString("senha"));
 					dados.add(dado);
 					}	
 				}
