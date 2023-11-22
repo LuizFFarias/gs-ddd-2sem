@@ -88,8 +88,27 @@ public class VacinacaoResource {
 			return response.build();
 		}
 	}
+	
+	
+// Caderneta de vacinas
 
-
+	@GET
+	@Path("/vacinas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllVac() {
+		ArrayList<Vacinas> resposta = VacinacaoRepository.findAllVac();
+		  if (resposta != null && !resposta.isEmpty()) {
+	            System.out.println("Usuários encontrados");
+	            ResponseBuilder response = Response.ok(resposta, MediaType.APPLICATION_JSON);
+	           
+	            return response.build();
+	        } else {
+	        	System.out.println("Nenhum usuário encontrado");
+	            ResponseBuilder response = Response.status(404);
+	            return response.build();
+	        }
+	}
+	
 	@GET
 	@Path("/vacinas/{usuarioVac}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -147,5 +166,7 @@ public class VacinacaoResource {
 			return response.build();
 		}
 	}
+	
+
 	
 }

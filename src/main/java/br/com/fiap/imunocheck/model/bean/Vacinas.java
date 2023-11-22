@@ -9,6 +9,9 @@ public class Vacinas {
 	private String statusVac;
 	@NotNull
 	private String usuarioVac;
+	@NotNull
+	private String estadoVac;
+	
 	public int getId() {
 		return id;
 	}
@@ -28,13 +31,21 @@ public class Vacinas {
 	public void setUsuarioVac(String usuarioVac) {
 		this.usuarioVac = usuarioVac;
 	}
+	
+	public String getEstadoVac() {
+		return estadoVac;
+	}
+	public void setEstadoVac(String estadoVac) {
+		this.estadoVac = estadoVac;
+	}
 	public Vacinas() {
 
 	}
-	public Vacinas(@NotNull int id,@NotNull String statusVac,@NotNull String usuarioVac) {
+	public Vacinas(@NotNull int id,@NotNull String statusVac,@NotNull String usuarioVac, @NotNull String estadoVac) {
 		this.id = id;
 		this.statusVac = statusVac;
 		this.usuarioVac = usuarioVac;
+		this.estadoVac = estadoVac;
 	}
 	
 	

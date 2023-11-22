@@ -171,6 +171,36 @@ public class VacinacaoRepository extends Repository{
 		 * @author luizfillipe
 		 */
 		
+		public static ArrayList<Vacinas> findAllVac(){
+			ArrayList<Vacinas> tabelaVac = new ArrayList<Vacinas>();
+			String sql = "select * from VacinasUsuario";
+			try {
+				PreparedStatement ps = getConnection().prepareStatement(sql);
+				ResultSet rs = ps.executeQuery();
+				if (rs != null) {
+					while (rs.next()) {
+						Vacinas vacinas = new Vacinas();
+						vacinas.setId(rs.getInt("idvacina"));
+						vacinas.setStatusVac(rs.getString("statusvacina"));
+						vacinas.setUsuarioVac(rs.getString("usuario"));
+						vacinas.setEstadoVac(rs.getString("estado"));
+						tabelaVac.add(vacinas);
+					}
+				}
+				else {
+					return null;
+				}
+			} catch (SQLException e) {
+				System.out.println("Erro ao listar vacinas: " + e.getMessage());
+			}
+			return tabelaVac;
+		}
+		
+		/***
+		 * Método para pegar as informaçoes da tabela de vacinas
+		 * @author luizfillipe
+		 */
+		
 		public static ArrayList<Vacinas> findVac(String usuario){
 			ArrayList<Vacinas> tabelaVac = new ArrayList<Vacinas>();
 			String sql = "select * from VacinasUsuario where usuario = ?";
@@ -184,6 +214,7 @@ public class VacinacaoRepository extends Repository{
 						vacinas.setId(rs.getInt("idvacina"));
 						vacinas.setStatusVac(rs.getString("statusvacina"));
 						vacinas.setUsuarioVac(rs.getString("usuario"));
+						vacinas.setEstadoVac(rs.getString("estado"));
 						tabelaVac.add(vacinas);
 					}
 				}
@@ -202,12 +233,13 @@ public class VacinacaoRepository extends Repository{
 		 */
 		
 		public static Vacinas saveVac(Vacinas vacinas) {
-			String sql = "insert into VacinasUsuario values(?, ?, ?)";
+			String sql = "insert into VacinasUsuario values(?, ?, ?, ?)";
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
 				ps.setString(1, vacinas.getUsuarioVac());
 				ps.setInt(2, vacinas.getId());
 				ps.setString(3, vacinas.getStatusVac());
+				ps.setString(4, vacinas.getEstadoVac());
 				if (ps.executeUpdate() > 0) {
 					return vacinas;
 				} else {
@@ -272,6 +304,7 @@ public class VacinacaoRepository extends Repository{
 				}
 				return false;
 			}
+			
 			
 
 }
