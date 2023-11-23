@@ -260,12 +260,12 @@ public class VacinacaoRepository extends Repository{
 		 */
 		
 		public static Vacinas updateVac(Vacinas vacinas){
-			String sql = "update VacinasUsuario set idVacina = ?, statusVacina = ? where usuario = ?";
+			String sql = "update VacinasUsuario set statusVacina = ? where usuario = ? and idvacina = ?";
 			try {
 				PreparedStatement ps = getConnection().prepareStatement(sql);
-				ps.setInt(1, vacinas.getId());
-				ps.setString(2, vacinas.getStatusVac());
-				ps.setString(3, vacinas.getUsuarioVac());
+				ps.setString(1, vacinas.getStatusVac());
+				ps.setString(2, vacinas.getUsuarioVac());
+				ps.setInt(3, vacinas.getId());
 				if (ps.executeUpdate() > 0) {
 					return vacinas;
 				} else {
@@ -287,11 +287,12 @@ public class VacinacaoRepository extends Repository{
 		    * @author Luiz Fillipe
 		    */	
 			
-			public static boolean deleteVac(String usuario) {
-				String sql = "delete from VacinasUsuario where usuario = ?";
+			public static boolean deleteVac(String usuario, String id) {
+				String sql = "delete from VacinasUsuario where usuario = ? and idvacina = ?";
 				try {
 					PreparedStatement ps = getConnection().prepareStatement(sql);
 					ps.setString(1, usuario);
+					ps.setString(2, id);
 					if (ps.executeUpdate() > 0) {
 						return true;
 					} else {

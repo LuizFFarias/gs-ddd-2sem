@@ -151,14 +151,14 @@ public class VacinacaoResource {
 		} else {
 			response = Response.status(400);
 		}
-		response.entity(response);
+		response.entity(resposta);
 		return response.build();
 	}
 	
 	@DELETE
-	@Path("/vacinas/{usuarioVac}")
-	public Response deleteVac(@PathParam("usuarioVac") String usuario) {
-		if (VacinacaoRepository.deleteVac(usuario)) {
+	@Path("/vacinas/{usuarioVac}/{id}")
+	public Response deleteVac(@PathParam("usuarioVac") String usuario, @PathParam("id") String id) {
+		if (VacinacaoRepository.deleteVac(usuario, id)) {
 			ResponseBuilder response = Response.noContent();
 			return response.build();
 		} else {
