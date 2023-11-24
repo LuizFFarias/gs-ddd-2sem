@@ -114,34 +114,7 @@ public class VacinacaoRepository extends Repository{
 			return null;	
 		}
 		
-		/***
-		 * Método que faz alterações nos dados de um usuario cadastrado 
-		 * @author Luiz Fillipe
-		 */
 		
-		public static DadosUsuario update(DadosUsuario dado) {
-			String sql = "update Cadastro set nomeCompleto = ?, idade = ?, estado = ? where usuario = ?";
-			try {
-				PreparedStatement ps = getConnection().prepareStatement(sql);
-				ps.setString(1, dado.getNome());
-				ps.setInt(2, dado.getIdade());
-				ps.setString(3, dado.getEstado());
-				ps.setString(5, dado.getUsuario());
-				if (ps.executeUpdate() > 0) {
-					return dado;
-				} else {
-					return null;
-				}
-				
-			}
-			catch (SQLException e) {
-				System.out.println("Erro ao atualizar: " + e.getMessage());
-			}
-			finally {
-				closeConnection();
-			}
-			return null;
-		}
 		
 	   /***
 	    * Método para deletar o cadastro e os dados do usuário

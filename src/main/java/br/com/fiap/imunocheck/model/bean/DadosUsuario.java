@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+
+/***
+ * Classe com as variaveis necessarias para o CRUD dos cadastros
+ * @author luizfillipe
+ */
+
 public class DadosUsuario {
 	@NotBlank
 	private String nome;

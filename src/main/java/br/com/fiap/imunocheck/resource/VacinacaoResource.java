@@ -39,6 +39,11 @@ public class VacinacaoResource {
 	            return response.build();
 	        }
 	}
+	
+	/***
+	 * Método para encontrar todos os clientes através do GET pelo usuario
+	 * @author luizfillipe
+	 */
 		  
 	@GET
 	@Path("/{usuario}")
@@ -58,7 +63,7 @@ public class VacinacaoResource {
 		
 }
 	/***
-	 * Método para adicionar os dados necessários para a vistoria utilizando POST
+	 * Método para adicionar os dados do cadastro utilizando POST
 	 * @author luizfillipe
 	 */
 	
@@ -77,6 +82,11 @@ public class VacinacaoResource {
 		return response.build();
 	}
 	
+	/***
+	 * Método para deletar os dados do cadastro
+	 * @author luizfillipe
+	 */
+	
 	@DELETE
 	@Path("/{usuario}")
 	public Response delete(@PathParam("usuario") String usuario) {
@@ -92,6 +102,11 @@ public class VacinacaoResource {
 	
 // Caderneta de vacinas
 
+	/***
+	 * Método para buscar os dados do cadastro das vacinas tomadas
+	 * @author luizfillipe
+	 */
+	
 	@GET
 	@Path("/vacinas")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -109,6 +124,11 @@ public class VacinacaoResource {
 	        }
 	}
 	
+	/***
+	 * Método para buscar os dados do cadastro das vacinas tomadas pelo usuario
+	 * @author luizfillipe
+	 */
+	
 	@GET
 	@Path("/vacinas/{usuarioVac}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -124,6 +144,11 @@ public class VacinacaoResource {
 			            return response.build();
 			        }	
 }
+	/***
+	 * Método para adicionar os dados do cadastro das vacinas tomadas
+	 * @author luizfillipe
+	 */
+	
 	@POST
 	@Path("/vacinas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -140,6 +165,11 @@ public class VacinacaoResource {
 		return response.build();
 	}
 	
+	/***
+	 * Método para alterar os dados do cadastro das vacinas tomadas
+	 * @author luizfillipe
+	 */
+	
 	@PUT
 	@Path("/vacinas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -154,6 +184,11 @@ public class VacinacaoResource {
 		response.entity(resposta);
 		return response.build();
 	}
+	
+	/***
+	 * Método para deletar os dados do cadastro das vacinas tomadas pelo usuario e id da vacina
+	 * @author luizfillipe
+	 */
 	
 	@DELETE
 	@Path("/vacinas/{usuarioVac}/{id}")

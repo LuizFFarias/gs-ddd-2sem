@@ -2,6 +2,11 @@ package br.com.fiap.imunocheck.model.bean;
 
 import jakarta.validation.constraints.NotNull;
 
+/***
+ * Classe com as variaveis necessarias para o CRUD das vacinas tomadas
+ * @author luizfillipe
+ */
+
 public class Vacinas {
 	@NotNull
 	private int id;
