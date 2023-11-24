@@ -7,6 +7,11 @@ import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.ext.Provider;
 
+
+/***
+ * Classe para adicionar os filtros do CORS
+ * @author luizfillipe
+ */
 @Provider
 public class CorsFilter implements ContainerResponseFilter{
 	

@@ -39,6 +39,11 @@ public class VacinacaoResource {
 	            return response.build();
 	        }
 	}
+	
+	/***
+	 * Método para encontrar todos os clientes através do GET pelo usuario
+	 * @author luizfillipe
+	 */
 		  
 	@GET
 	@Path("/{usuario}")
@@ -58,7 +63,7 @@ public class VacinacaoResource {
 		
 }
 	/***
-	 * Método para adicionar os dados necessários para a vistoria utilizando POST
+	 * Método para adicionar os dados do cadastro utilizando POST
 	 * @author luizfillipe
 	 */
 	
@@ -77,6 +82,11 @@ public class VacinacaoResource {
 		return response.build();
 	}
 	
+	/***
+	 * Método para deletar os dados do cadastro
+	 * @author luizfillipe
+	 */
+	
 	@DELETE
 	@Path("/{usuario}")
 	public Response delete(@PathParam("usuario") String usuario) {
@@ -88,8 +98,37 @@ public class VacinacaoResource {
 			return response.build();
 		}
 	}
+	
+	
+// Caderneta de vacinas
 
-
+	/***
+	 * Método para buscar os dados do cadastro das vacinas tomadas
+	 * @author luizfillipe
+	 */
+	
+	@GET
+	@Path("/vacinas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findAllVac() {
+		ArrayList<Vacinas> resposta = VacinacaoRepository.findAllVac();
+		  if (resposta != null && !resposta.isEmpty()) {
+	            System.out.println("Usuários encontrados");
+	            ResponseBuilder response = Response.ok(resposta, MediaType.APPLICATION_JSON);
+	           
+	            return response.build();
+	        } else {
+	        	System.out.println("Nenhum usuário encontrado");
+	            ResponseBuilder response = Response.status(404);
+	            return response.build();
+	        }
+	}
+	
+	/***
+	 * Método para buscar os dados do cadastro das vacinas tomadas pelo usuario
+	 * @author luizfillipe
+	 */
+	
 	@GET
 	@Path("/vacinas/{usuarioVac}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -105,6 +144,11 @@ public class VacinacaoResource {
 			            return response.build();
 			        }	
 }
+	/***
+	 * Método para adicionar os dados do cadastro das vacinas tomadas
+	 * @author luizfillipe
+	 */
+	
 	@POST
 	@Path("/vacinas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -121,6 +165,11 @@ public class VacinacaoResource {
 		return response.build();
 	}
 	
+	/***
+	 * Método para alterar os dados do cadastro das vacinas tomadas
+	 * @author luizfillipe
+	 */
+	
 	@PUT
 	@Path("/vacinas")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -132,14 +181,19 @@ public class VacinacaoResource {
 		} else {
 			response = Response.status(400);
 		}
-		response.entity(response);
+		response.entity(resposta);
 		return response.build();
 	}
 	
+	/***
+	 * Método para deletar os dados do cadastro das vacinas tomadas pelo usuario e id da vacina
+	 * @author luizfillipe
+	 */
+	
 	@DELETE
-	@Path("/vacinas/{usuarioVac}")
-	public Response deleteVac(@PathParam("usuarioVac") String usuario) {
-		if (VacinacaoRepository.deleteVac(usuario)) {
+	@Path("/vacinas/{usuarioVac}/{id}")
+	public Response deleteVac(@PathParam("usuarioVac") String usuario, @PathParam("id") String id) {
+		if (VacinacaoRepository.deleteVac(usuario, id)) {
 			ResponseBuilder response = Response.noContent();
 			return response.build();
 		} else {
@@ -147,5 +201,7 @@ public class VacinacaoResource {
 			return response.build();
 		}
 	}
+	
+
 	
 }
